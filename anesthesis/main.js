@@ -61,8 +61,19 @@ console.log(eval(item));
 let reg = /\{\w*\}/gm ;
 let str = `un {algo} de 20 
 et {ado}`;
+let str1 = 'un ${algo} de 20 et ${ado}';
 let resultat = str.match(reg);
+let resultat1 = str1.match(reg);
 console.log(resultat);
+console.log(resultat1);
+
+let expression = 'const {';
+//for (let i = 0; i < resultat.length ; i++) {
+//   console
+//}
+expression.concat('} = obj ;');
+
+console.log(expression);
 
 
 
