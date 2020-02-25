@@ -58,6 +58,7 @@ class VisitorDesisionTree{
 
     visitDecisionTree(decisionTree){
 
+        // Destructing to map visitor object
         `   
             let obj = {a: 1, b:2, c:3, d:4}
             const {a,b,c,d} = obj
