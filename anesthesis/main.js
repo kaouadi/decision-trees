@@ -60,20 +60,30 @@ console.log(eval(item));
 
 let reg = /\{\w*\}/gm ;
 let str = `un {algo} de 20 
-et {ado}`;
+et {ado} et le {goal} et {enfer}`;
 let str1 = 'un ${algo} de 20 et ${ado}';
 let resultat = str.match(reg);
 let resultat1 = str1.match(reg);
 console.log(resultat);
 console.log(resultat1);
 
-let expression = 'const {';
-//for (let i = 0; i < resultat.length ; i++) {
-//   console
-//}
-expression.concat('} = obj ;');
+let titleObj = 'obj'
+let left = 'const {';
+let right = '} = obj ;'
+let expression = '';
+for (let i = 0; i < resultat.length ; i++) {
+   
+  let chr = resultat[i].replace('{','').replace('}','')
+  expression += chr ;
+  if (i != resultat.length-1){
+    expression += ',';
+  }
 
-console.log(expression);
+}
+let rule = left + expression + right
+
+
+console.log(rule);
 
 
 

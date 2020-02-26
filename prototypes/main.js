@@ -3,7 +3,7 @@ class DecisionTree{
         this._name = null;
         this._decisionTrees = [];
         this._validated = true;
-        this._expression = null;
+        this._ruleExp = null;
     }
     set name(value){
         this._name = value;
@@ -25,12 +25,12 @@ class DecisionTree{
         this._validated = value;
     }
 
-    set expression(value){
-        this._expression = value;
+    set ruleExp(value){
+        this._ruleExp = value;
     }
 
-    get expression(){
-        return this._expression;
+    get ruleExp(){
+        return this._ruleExp;
     }
 
     add(item){
@@ -56,17 +56,100 @@ class DecisionTree{
 class VisitorDesisionTree{
 
 
-    visitDecisionTree(decisionTree){
-
-        // Destructing to map visitor object
-        `   
-            let obj = {a: 1, b:2, c:3, d:4}
-            const {a,b,c,d} = obj
-
-        `
-
+    constructor(){
+        this._decisionTrees = [];
     }
 
 
+    visitDecisionTree(decisionTree){
+
+        /* -- Destructuring rule expression ---
+            
+            example :
+            ruleExp = '{a} > 1 && {a} > 4 && b == 3000'
+            --> const {a,b} = this ;
+
+        */
+        eval(destructuringExpression(decisionTree.ruleExp));
+
+        /* ----- Transform strint to liteal expression
+          ASCII literal character ` -> 96 
+        */
+        /* -- Create rule from expression ---
+            
+            example :
+            ruleExp = '{a} > 1 && {a} < 4 && b == 3000'
+            -->  if (${a} > 1 && ${a} < 2){
+                    decisionTree.validated = true
+                    this.addDecisionTree(decisionTree)
+                 }
+        */
+        eval(
+            String.fromCharCode(96)
+            .concat(createRulesFromExpression(decisionTree.ruleExp))
+            .concat(String.fromCharCode(96))
+        )
+        
+
+    }
+
+    destructuringExpression(ruleExp){
+
+        let reg = /\{\w*\}/gm ;
+        let resultat = ruleExp.match(reg);
+        let expression = '';
+        for (let i = 0; i < resultat.length ; i++) {
+   
+            let chr = resultat[i].replace('{','').replace('}','')
+            expression += chr ;
+            if (i != resultat.length-1){
+                expression += ',';
+            }
+
+        }
+        return `const {${expression}} = this;`
+
+    }
+
+    createRulesFromExpression(ruleExp){
+        let template = `
+            if(${ruleExp}){
+                decisisionTree.validated = true;
+            }
+        `
+        return template.replace('{', '${'); 
+    }
+    
+    addDecisionTree(decisionTree){
+        this._decisionTrees.push(decisionTree)
+    }
+
+    get decisionTrees()
+    {
+        return this._decisionTrees;
+    }
+
+    
+
+
 }
+
+
+let decisionTreeA = new DecisionTree();
+decisionTreeA.name = 'A';
+decisionTreeA.ruleExp = '{a} > 1 && {a} < 4';
+
+console.log(decisionTreeA);
+
+let decisionTreeB = new DecisionTree();
+decisionTreeB.name = 'B';
+decisionTreeB.ruleExp = '{b} > 100 && {b} < 4000';
+
+console.log(decisionTreeB);
+
+let decisionTreeC = new DecisionTree();
+decisionTreeC.name = 'C';
+decisionTreeC.ruleExp = '{c} > 1 && {c} < 4';
+
+console.log(decisionTreeC);
 
