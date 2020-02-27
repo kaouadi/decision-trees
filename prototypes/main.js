@@ -33,23 +33,41 @@ class DecisionTree{
         return this._ruleExp;
     }
 
-    add(item){
-        this._decisionTrees.push(item);
+    attach(decisionTree){
+        this._decisionTrees.push(decisionTree);
     }
 
     accept(visitor){
 
-        visitor.visitItem(self)
-        for(var currentItem of this._items){
-            if (currentItem.validated){
-                currentItem.accept(visitor)
-            } 
+        visitor.visitItem(this)
+        if (this.validated){
+            for(let decisionTree of this._decisionTrees){
+                decisionTree.accept(visitor)
+            }
             
         }
 
 
     }
 
+
+}
+
+class RootDecisionTree{
+
+    constructor(){
+        this._decisionTrees = [];
+    }
+    attach(decisionTree){
+        this._decisionTrees.push(decisionTree);
+    }
+    accept(visitor){
+
+        for(let decisionTree of this._decisionTrees){
+            decisionTree.accept(visitor)
+        }
+
+    }
 
 }
 
@@ -137,7 +155,7 @@ class VisitorDesisionTree{
 
 let decisionTreeA = new DecisionTree();
 decisionTreeA.name = 'A';
-decisionTreeA.ruleExp = '{a} > 100 ';
+decisionTreeA.ruleExp = '{a}b   > 100 ';
 
 console.log(decisionTreeA);
 
