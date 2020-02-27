@@ -66,7 +66,7 @@ class VisitorDesisionTree{
         /* -- Destructuring rule expression ---
             
             example :
-            ruleExp = '{a} > 1 && {a} > 4 && b == 3000'
+            ruleExp = '{a} > 1'
             --> const {a,b} = this ;
 
         */
@@ -78,8 +78,8 @@ class VisitorDesisionTree{
         /* -- Create rule from expression ---
             
             example :
-            ruleExp = '{a} > 1 && {a} < 4 && b == 3000'
-            -->  if (${a} > 1 && ${a} < 2){
+            ruleExp = '{a} > 1'
+            -->  if (${a} > 1){
                     decisionTree.validated = true
                     this.addDecisionTree(decisionTree)
                  }
@@ -137,19 +137,19 @@ class VisitorDesisionTree{
 
 let decisionTreeA = new DecisionTree();
 decisionTreeA.name = 'A';
-decisionTreeA.ruleExp = '{a} > 1 && {a} < 4';
+decisionTreeA.ruleExp = '{a} > 100 ';
 
 console.log(decisionTreeA);
 
 let decisionTreeB = new DecisionTree();
 decisionTreeB.name = 'B';
-decisionTreeB.ruleExp = '{b} > 100 && {b} < 4000';
+decisionTreeB.ruleExp = '{a} < 100';
 
 console.log(decisionTreeB);
 
 let decisionTreeC = new DecisionTree();
 decisionTreeC.name = 'C';
-decisionTreeC.ruleExp = '{c} > 1 && {c} < 4';
+decisionTreeC.ruleExp = '{c} == false';
 
 console.log(decisionTreeC);
 
