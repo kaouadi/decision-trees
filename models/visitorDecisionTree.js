@@ -12,7 +12,7 @@ export default class VisitorDesisionTree{
             
             example :
             ruleExp = '{a} > 1'
-            --> const {a,b} = this ;
+            --> var {a,b} = this ;
 
         */
         eval(destructuringExpression(decisionTree.ruleExp));
@@ -26,14 +26,9 @@ export default class VisitorDesisionTree{
             ruleExp = '{a} > 1'
             -->  if (${a} > 1){
                     decisionTree.validated = true
-                    this.addDecisionTree(decisionTree)
                  }
         */
-        eval(
-            String.fromCharCode(96)
-            .concat(createRulesFromExpression(decisionTree.ruleExp))
-            .concat(String.fromCharCode(96))
-        )
+        eval(createRulesFromExpression(decisionTree.ruleExp));
         
 
     }
@@ -52,17 +47,18 @@ export default class VisitorDesisionTree{
             }
 
         }
-        return `const {${expression}} = this;`
+        return `var {${expression}} = this ;`
 
     }
 
     createRulesFromExpression(ruleExp){
+        let rule = ruleExp.replace('{', '').replace('}', '');
         let template = `
-            if(${ruleExp}){
+            if(${rule}){
                 decisisionTree.validated = true;
             }
         `
-        return template.replace('{', '${'); 
+        return template ; 
     }
     
     addDecisionTree(decisionTree){
