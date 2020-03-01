@@ -9,6 +9,7 @@ module.exports =  class RootDecisionTree{
     accept(visitor){
 
         for(let decisionTree of this._decisionTrees){
+            console.log('rootDecisionTree : '+ decisionTree.name)
             decisionTree.accept(visitor)
         }
 

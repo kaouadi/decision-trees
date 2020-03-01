@@ -2,7 +2,7 @@ module.exports =  class DecisionTree{
     constructor(){
         this._name = null;
         this._decisionTrees = [];
-        this._validated = true;
+        this._validated = false;
         this._ruleExp = null;
     }
     set name(value){
@@ -40,6 +40,7 @@ module.exports =  class DecisionTree{
     accept(visitor){
 
         visitor.visitDecisionTree(this)
+        console.log('decisionTree.validated => '+ this.validated)
         if (this.validated){
             for(let decisionTree of this._decisionTrees){
                 decisionTree.accept(visitor)

@@ -18,6 +18,14 @@ test('check item test', () => {
     decisionTreeA.ruleExp = ruleA;
     rootDecisionTree.attach(decisionTreeA);
 
+        
+    // --- B ---- //
+    let ruleB = '{a} <= 100';
+    let decisionTreeB = new DecisionTree();
+    decisionTreeB.name = 'Node B';
+    decisionTreeB.ruleExp = ruleB;
+    rootDecisionTree.attach(decisionTreeB);
+
     // --- C ---- //
     let ruleC = '{c} > 40';
     let decisionTreeC = new DecisionTree();
@@ -32,13 +40,7 @@ test('check item test', () => {
     decisionTreeD.ruleExp = ruleD;
     decisionTreeA.attach(decisionTreeD);
 
-    
-    // --- B ---- //
-    let ruleB = '{a} <= 100';
-    let decisionTreeB = new DecisionTree();
-    decisionTreeB.name = 'Node B';
-    decisionTreeB.ruleExp = ruleB;
-    rootDecisionTree.attach(decisionTreeB);
+
 
     // --- E ---- //
     let ruleE = '{d} > 300';
@@ -59,5 +61,7 @@ test('check item test', () => {
     visitor.injectParametersToVisit(parameters);
     rootDecisionTree.accept(visitor);
     expect(visitor.a).toEqual(500);
+    console.log(visitor.state);
+    expect(visitor.state.length).toEqual(2);
 
 });

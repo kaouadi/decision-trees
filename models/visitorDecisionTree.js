@@ -2,6 +2,8 @@ module.exports =  class VisitorDesisionTree{
 
     constructor(){
 
+        this._state = [];
+
     }
 
     injectParametersToVisit(parameters){
@@ -41,9 +43,18 @@ module.exports =  class VisitorDesisionTree{
         let template = `
             if(this.${rule}){
                 decisionTree.validated = true;
+                this.addState(decisionTree);
+                
             }
         `
         return template ; 
+    }
+
+    get state(){
+        return this._state ;
+    }
+    addState(state){
+        this._state.push(state) ;
     }
 
 }
