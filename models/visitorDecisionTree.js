@@ -1,10 +1,28 @@
 export default class VisitorDesisionTree{
 
 
-    constructor(){
+    constructor(parameters){
         this._decisionTrees = [];
-    }
 
+        /* -- Initialize parameters ---
+            
+            example :
+            {a: 2, b: 3, c: 4}
+            ----> this._a = 2;
+                  get a(){
+                      return this.a ;
+                  }
+        */
+        for (let [key, value] of Object.entries(parameters)) {
+            Object.defineProperty(this, `_${key}`, {
+                value: value,
+                writable: true
+            });
+            Object.defineProperty(this, `${key}`, { get: function(){
+               eval(`return this._${key}`) 
+            }});
+        }
+    }
 
     visitDecisionTree(decisionTree){
 
