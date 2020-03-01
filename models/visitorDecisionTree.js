@@ -1,16 +1,19 @@
 export default class VisitorDesisionTree{
 
+    constructor(){
 
-    constructor(parameters){
-        this._decisionTrees = [];
+    }
 
-        /* -- Initialize parameters ---
-            
-            example :
-            {a: 2, b: 3, c: 4}
+    injectParametersToVisit(paramaters){
+        /* -- Inject parameters to create public attributes ---
+
+            example :  parameters = {a: 2, b: 3, c: 4}
+            ----> injectParametersToVisit(parameters)
+            ----> Define private properties
             ----> this._a = 2;
-                  get a(){
-                      return this.a ;
+            ----> Define public properties
+            ----> get a(){
+                      return this._a ;
                   }
         */
         for (let [key, value] of Object.entries(parameters)) {
@@ -19,7 +22,7 @@ export default class VisitorDesisionTree{
                 writable: true
             });
             Object.defineProperty(this, `${key}`, { get: function(){
-               eval(`return this._${key}`) 
+               return eval(`this._${key}`);
             }});
         }
     }
@@ -28,21 +31,14 @@ export default class VisitorDesisionTree{
 
         /* -- Destructuring rule expression ---
             
-            example :
-            ruleExp = '{a} > 1'
+            example : ruleExp = '{a} > 1'
             --> var {a,b} = this ;
-
         */
         eval(destructuringExpression(decisionTree.ruleExp));
-
-        /* ----- Transform strint to liteal expression
-          ASCII literal character ` -> 96 
-        */
         /* -- Create rule from expression ---
-            
-            example :
-            ruleExp = '{a} > 1'
-            -->  if (${a} > 1){
+
+             example : ruleExp = '{a} > 1'
+            -->  if (a > 1){
                     decisionTree.validated = true
                  }
         */
@@ -78,17 +74,5 @@ export default class VisitorDesisionTree{
         `
         return template ; 
     }
-    
-    addDecisionTree(decisionTree){
-        this._decisionTrees.push(decisionTree)
-    }
-
-    get decisionTrees()
-    {
-        return this._decisionTrees;
-    }
-
-    
-
 
 }

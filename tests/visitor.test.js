@@ -148,3 +148,25 @@ test('destructuringExpression', () => {
 
 });
 
+test('Inject parameters to visit decision tree', () =>{
+
+        let obj = {
+            injectParametersToVisit(parameters){
+
+                for (let [key, value] of Object.entries(parameters)) {
+                    Object.defineProperty(this, `_${key}`, {
+                        value: value,
+                        writable: true
+                    });
+                    Object.defineProperty(this, `${key}`, { get: function(){
+                       return eval(`this._${key}`) 
+                    }});
+                }
+            }
+        }
+        obj.injectParametersToVisit({a: 2, b: 3, c: 4});
+        expect(obj.a).toEqual(2);
+        expect(obj.b).toEqual(3);
+        expect(obj.c).toEqual(4);
+});
+
