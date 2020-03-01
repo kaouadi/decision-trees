@@ -4,7 +4,7 @@ module.exports =  class VisitorDesisionTree{
 
     }
 
-    injectParametersToVisit(paramaters){
+    injectParametersToVisit(parameters){
         /* -- Inject parameters to create public attributes ---
 
             example :  parameters = {a: 2, b: 3, c: 4}
@@ -26,15 +26,7 @@ module.exports =  class VisitorDesisionTree{
             }});
         }
     }
-
     visitDecisionTree(decisionTree){
-
-        /* -- Destructuring rule expression ---
-            
-            example : ruleExp = '{a} > 1'
-            --> var {a,b} = this ;
-        */
-        eval(destructuringExpression(decisionTree.ruleExp));
         /* -- Create rule from expression ---
 
              example : ruleExp = '{a} > 1'
@@ -42,34 +34,13 @@ module.exports =  class VisitorDesisionTree{
                     decisionTree.validated = true
                  }
         */
-        eval(createRulesFromExpression(decisionTree.ruleExp));
-        
-
+        eval(this.createRulesFromExpression(decisionTree.ruleExp));
     }
-
-    destructuringExpression(ruleExp){
-
-        let reg = /\{\w*\}/gm ;
-        let resultat = ruleExp.match(reg);
-        let expression = '';
-        for (let i = 0; i < resultat.length ; i++) {
-   
-            let chr = resultat[i].replace('{','').replace('}','')
-            expression += chr ;
-            if (i != resultat.length-1){
-                expression += ',';
-            }
-
-        }
-        return `var {${expression}} = this ;`
-
-    }
-
     createRulesFromExpression(ruleExp){
         let rule = ruleExp.replace('{', '').replace('}', '');
         let template = `
-            if(${rule}){
-                decisisionTree.validated = true;
+            if(this.${rule}){
+                decisionTree.validated = true;
             }
         `
         return template ; 

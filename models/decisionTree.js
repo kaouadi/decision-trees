@@ -39,7 +39,7 @@ module.exports =  class DecisionTree{
 
     accept(visitor){
 
-        visitor.visitItem(this)
+        visitor.visitDecisionTree(this)
         if (this.validated){
             for(let decisionTree of this._decisionTrees){
                 decisionTree.accept(visitor)
