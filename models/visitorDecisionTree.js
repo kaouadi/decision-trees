@@ -1,4 +1,4 @@
-export default class VisitorDesisionTree{
+module.exports =  class VisitorDesisionTree{
 
     constructor(){
 

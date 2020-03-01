@@ -1,4 +1,4 @@
-export default class RootDecisionTree{
+module.exports =  class RootDecisionTree{
 
     constructor(){
         this._decisionTrees = [];

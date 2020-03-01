@@ -1,4 +1,4 @@
-export default class ItemTest{
+module.exports =  class ItemTest{
 
 
     constructor(){
