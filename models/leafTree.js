@@ -13,7 +13,7 @@ module.exports =  class LeafTree extends NodeTree{
         this._message = value;
     }
     accept(visitor){
-        visitor.visitDecisionTree(this)
+        visitor.visitNodeTree(this)
     }
 
 

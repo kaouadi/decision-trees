@@ -43,7 +43,7 @@ module.exports =  class VisitorNodeTree{
         let template = `
             if(this.${rule}){
                 decisionTree.validated = true;
-                this.addState(decisionTree);
+                this.addState(decisionTree.name);
                 
             }
         `
@@ -53,8 +53,8 @@ module.exports =  class VisitorNodeTree{
     get state(){
         return this._state ;
     }
-    addState(state){
-        this._state.push(state) ;
+    addState(name){
+        this._state.push(name) ;
     }
 
 }

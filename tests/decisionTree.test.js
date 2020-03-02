@@ -1,9 +1,10 @@
-const DecisionTree = require('../models/decisionTree');
-const Visitor = require('../models/visitorNodeTree');
+const DecisionTreeFactory = require('../factories/decisionTreeFactory');
+const LeafTreeFactory = require('../factories/LeafTreeFactory');
+const VisitorNodeTreeFactory = require('../factories/visitorNodeTreeFactory');
 
 test('check item test', () => {
-    const rootDecisionTree = new DecisionTree();
-    expect(rootDecisionTree).not.toBeUndefined();
+    const ROOT = DecisionTreeFactory.createDecisionTree('ROOT', null )
+    expect(ROOT).not.toBeUndefined();
     /*
               ROOT
            A       B
@@ -11,113 +12,88 @@ test('check item test', () => {
         G H I J K L  M N
          */
      
+    
     // --- A ---- //
-    let ruleA = '{a} > 100';
-    let decisionTreeA = new DecisionTree();
-    decisionTreeA.name = 'Node A';
-    decisionTreeA.ruleExp = ruleA;
-    rootDecisionTree.attach(decisionTreeA);
+    const _A = LeafTreeFactory.createLeafTree(
+    'A',
+    '{a} > 100', 
+    'Message A')
 
-        
+    ROOT.attach(_A);
+    
+     
     // --- B ---- //
-    let ruleB = '{a} <= 100';
-    let decisionTreeB = new DecisionTree();
-    decisionTreeB.name = 'Node B';
-    decisionTreeB.ruleExp = ruleB;
-    rootDecisionTree.attach(decisionTreeB);
+    const _B = DecisionTreeFactory.createDecisionTree('B', '{a} <= 100')
+    ROOT.attach(_B);
 
+    
     // --- C ---- //
-    let ruleC = '{c} > 40';
-    let decisionTreeC = new DecisionTree();
-    decisionTreeC.name = 'Node C';
-    decisionTreeC.ruleExp = ruleC;
-    decisionTreeA.attach(decisionTreeC);
-
+    const _C = LeafTreeFactory.createLeafTree(
+      'C',
+      '{b} > 500', 
+      'Message C')
+  
+    _B.attach(_C);
+    
     // --- D ---- //
-    let ruleD = '{c} <= 40';
-    let decisionTreeD = new DecisionTree();
-    decisionTreeD.name = 'Node D';
-    decisionTreeD.ruleExp = ruleD;
-    decisionTreeA.attach(decisionTreeD);
-
-
-
+    const _D = DecisionTreeFactory.createDecisionTree('D', '{b} <= 500')
+    _B.attach(_D);
+    
     // --- E ---- //
-    let ruleE = '{d} > 300';
-    let decisionTreeE = new DecisionTree();
-    decisionTreeE.name = 'Node E';
-    decisionTreeE.ruleExp = ruleE;
-    decisionTreeB.attach(decisionTreeE);
-
+    const _E = LeafTreeFactory.createLeafTree(
+      'E',
+      '{c} == true', 
+      'Message E')
+  
+      _D.attach(_E);
+    
     // --- F ---- //
-    let ruleF = '{d} <= 300';
-    let decisionTreeF = new DecisionTree();
-    decisionTreeF.name = 'Node F';
-    decisionTreeF.ruleExp = ruleF;
-    decisionTreeB.attach(decisionTreeF);
-
+    const _F = DecisionTreeFactory.createDecisionTree('{c} == false', 'F')
+    _D.attach(_F);
+   
+    /*
     // --- G ---- //
-    let ruleG = '{d} <= 300';
-    let decisionTreeG = new DecisionTree();
-    decisionTreeG.name = 'Node G';
-    decisionTreeG.ruleExp = ruleG;
-    decisionTreeC.attach(decisionTreeG);
+    const _G = LeafTreeFactory.createLeafTree(
+      'G',
+      '{a} > 100', 
+      'Message G')
+  
+      _F.attach(_G);
 
     // --- H ---- //
-    let ruleH = '{d} <= 300';
-    let decisionTreeH = new DecisionTree();
-    decisionTreeH.name = 'Node H';
-    decisionTreeH.ruleExp = ruleH;
-    decisionTreeC.attach(decisionTreeH);
+    const _H = DecisionTreeFactory.createDecisionTree('{a} > 100', 'H')
+    _F.attach(_D);
 
     // --- I ---- //
-    let ruleI = '{d} <= 300';
-    let decisionTreeI = new DecisionTree();
-    decisionTreeI.name = 'Node I';
-    decisionTreeI.ruleExp = ruleI;
-    decisionTreeD.attach(decisionTreeI);
+    const _I = LeafTreeFactory.createLeafTree(
+      'E',
+      '{a} > 100', 
+      'Message E')
+  
+      _H.attach(_I);
 
     // --- J ---- //
-    let ruleJ = '{d} <= 300';
-    let decisionTreeJ = new DecisionTree();
-    decisionTreeJ.name = 'Node J';
-    decisionTreeJ.ruleExp = ruleJ;
-    decisionTreeD.attach(decisionTreeJ);
+
 
     // --- K ---- //
-    let ruleK = '{d} <= 300';
-    let decisionTreeK = new DecisionTree();
-    decisionTreeK.name = 'Node K';
-    decisionTreeK.ruleExp = ruleK;
-    decisionTreeE.attach(decisionTreeK);
+
 
     // --- L ---- //
-    let ruleL = '{d} <= 300';
-    let decisionTreeL = new DecisionTree();
-    decisionTreeL.name = 'Node L';
-    decisionTreeL.ruleExp = ruleL;
-    decisionTreeE.attach(decisionTreeL);
+
 
     // --- M ---- //
-    let ruleM = '{d} <= 300';
-    let decisionTreeM = new DecisionTree();
-    decisionTreeM.name = 'Node M';
-    decisionTreeM.ruleExp = ruleM;
-    decisionTreeF.attach(decisionTreeM);
+ 
 
     // --- N ---- //
-    let ruleN = '{d} <= 300';
-    let decisionTreeN = new DecisionTree();
-    decisionTreeN.name = 'Node M';
-    decisionTreeN.ruleExp = ruleN;
-    decisionTreeF.attach(decisionTreeN);
-    
-    let parameters = {a: 500, b: 40, c: 56.5 ,d: 1000};
-    const visitor = new Visitor();
-    visitor.injectParametersToVisit(parameters);
-    rootDecisionTree.accept(visitor);
-    expect(visitor.a).toEqual(500);
+
+    */
+    const visitor = VisitorNodeTreeFactory.createVisitorNodeTree(
+      {a: 50, b: 300, c: true}
+    )
+
+    expect(visitor.a).toEqual(50);
+    ROOT.accept(visitor);
     console.log(visitor.state);
-    expect(visitor.state.length).toEqual(2);
+    //expect(visitor.state.length).toEqual(2);
 
 });
