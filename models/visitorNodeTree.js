@@ -1,4 +1,4 @@
-module.exports =  class VisitorDesisionTree{
+module.exports =  class VisitorNodeTree{
 
     constructor(){
 
@@ -28,7 +28,7 @@ module.exports =  class VisitorDesisionTree{
             }});
         }
     }
-    visitDecisionTree(decisionTree){
+    visitNodeTree(decisionTree){
         /* -- Create rule from expression ---
 
              example : ruleExp = '{a} > 1'
