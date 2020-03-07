@@ -2,17 +2,23 @@ const NodeTree = require('../models/nodeTree');
 module.exports =  class DecisionTree extends NodeTree{
     constructor(){
         super();
-        this._decisionTrees = [];
+        this._commandTree = [];
     }
-    get decisionTrees(){
-        return this._decisionTrees;
+    get commandTree(){
+        return this._commandTree();
     }
-    attach(decisionTree){
+    attach(commandTree){
+        commandTree.previousNodeTree = this ;
+        this._commandTree.push(commandTree);
+
+        /*
         decisionTree.previousNodeTree = this ;
         this._decisionTrees.push(decisionTree);
+        */
     }
 
     accept(visitor){
+        /*
 
         if (this.previousNodeTree != null){
             visitor.visitNodeTree(this)
@@ -27,7 +33,8 @@ module.exports =  class DecisionTree extends NodeTree{
             for(let decisionTree of this._decisionTrees){
                 decisionTree.accept(visitor)
             }
-        }  
+        }
+        */  
     }
 
 

@@ -28,6 +28,9 @@ module.exports =  class VisitorNodeTree{
             }});
         }
     }
+    visitCommandTree(commandTree){
+        
+    }
     visitNodeTree(decisionTree){
         /* -- Create rule from expression ---
 
