@@ -3,14 +3,17 @@ module.exports =  class CommandTree {
     constructor(){
         super();
         this._decisionTree = null;
-        this._expression = null;
+        this._ruleExpr = null;
         this._previousNodeTree = null;
     }
     set decisionTree(value){
         this._decisionTree = value;
     }
-    set expression(value){
-        this._expression = value;
+    set ruleExpr(value){
+        this._ruleExpr = value;
+    }
+    set conditional(value){
+        this._conditional = value;
     }
     set previousNodeTree(value){
         this._previousNodeTree = value;

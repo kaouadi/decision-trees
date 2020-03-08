@@ -1,4 +1,4 @@
-module.exports =  class VisitorNodeTree{
+module.exports =  class Visitor{
 
     constructor(){
 
@@ -29,6 +29,8 @@ module.exports =  class VisitorNodeTree{
         }
     }
     visitCommandTree(commandTree){
+
+        commandTree.ruleExpr = this.expressionAlgorithmicProcessing(commandTree.previousNodeTree, commandTree.conditional);
         
     }
     visitNodeTree(decisionTree){
@@ -39,7 +41,7 @@ module.exports =  class VisitorNodeTree{
                     decisionTree.validated = true
                  }
         */
-        eval(this.createRulesFromExpression(decisionTree.ruleExp));
+        eval(this.createRulesFromExpression(decisionTree.commandTree.ruleExp));
     }
     createRulesFromExpression(ruleExp){
         let rule = ruleExp.replace('{', '').replace('}', '');
@@ -51,6 +53,19 @@ module.exports =  class VisitorNodeTree{
             }
         `
         return template ; 
+    }
+
+    expressionAlgorithmicProcessing(expression, option){
+        let items = [['>','<='], ['<','>='], ['>=','<'], ['<=','>'], ['==','!='], ['!=','==']];
+        let ruleExpr = expression;
+        for (const item of items) {
+          if (expression.includes(item[0])){
+             if (option == false){
+                ruleExpr = expression.replace(item[0], item[1]);
+             }
+          }
+        }
+        return ruleExpr;
     }
 
     get state(){
