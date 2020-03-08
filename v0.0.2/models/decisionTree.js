@@ -29,7 +29,6 @@ module.exports =  class DecisionTree extends NodeTree{
          --
          Case ! Not root node
         if (this.commandTree != null){
-            visitor.visitCommandTree(this)
             if (this.validated){
                 for(let decisionTree of this._decisionTrees){
                     decisionTree.accept(visitor)
