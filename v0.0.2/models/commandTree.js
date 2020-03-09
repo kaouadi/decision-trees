@@ -1,7 +1,6 @@
 
 module.exports =  class CommandTree {
     constructor(){
-        super();
         this._decisionTree = null;
         this._ruleExpr = null;
         this._previousNodeTree = null;

@@ -1,4 +1,4 @@
-const DecisionTree = require('../models/commandTree')
+const CommandTree = require('../models/commandTree')
 module.exports =  class CommandTreeFactory{
 
     static createCommandTree(
