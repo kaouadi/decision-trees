@@ -5,6 +5,7 @@ module.exports =  class CommandTree {
         this._decisionTree = null;
         this._ruleExpr = null;
         this._previousNodeTree = null;
+        this._conditional = null;
     }
     set decisionTree(value){
         this._decisionTree = value;
@@ -28,7 +29,9 @@ module.exports =  class CommandTree {
     get expression(){
         return this._expression ;
     }
-
+    get ruleExpr(){
+        this._ruleExpr ;
+    }
 
     accept(visitor){
        visitor.visitCommandTree(this);

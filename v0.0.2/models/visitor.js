@@ -30,7 +30,18 @@ module.exports =  class Visitor{
     }
     visitCommandTree(commandTree){
 
-        commandTree.ruleExpr = this.expressionAlgorithmicProcessing(commandTree.previousNodeTree, commandTree.conditional);
+       /*
+           Setting rule expression into command Tree
+           example : 
+           expression : a >= 5 
+           conditional => true
+           rule expression : a >= 5
+           conditional => false
+           rule expression : a < 5
+       */
+        commandTree.ruleExpr = this.expressionAlgorithmicProcessing(
+            commandTree.previousNodeTree.expression, 
+            commandTree.conditional);
         
     }
     visitNodeTree(decisionTree){
