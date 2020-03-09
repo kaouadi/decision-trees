@@ -3,12 +3,12 @@ module.exports =  class DecisionTreeFactory{
 
     static createDecisionTree(
             name,
-            ruleExp
+            expression
     ){
 
         const decisionTree = new DecisionTree();
         decisionTree.name = name;
-        decisionTree.ruleExp = ruleExp;
+        decisionTree.expression = expression;
         return decisionTree;
 
 
