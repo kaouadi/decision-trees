@@ -5,34 +5,42 @@ const CommandTreeFactory = require('../factories/commandTreeFactory');
 
 test('Create Node', () => {
  
-    const A = DecisionTreeFactory.createDecisionTree('A', 'a >= 1' )
+    const A = DecisionTreeFactory.createDecisionTree('A', 'a > 0' )
 
-    const C = LeafTreeFactory.createLeafTree('C', 'Message C');
-    const D = DecisionTreeFactory.createDecisionTree('D', 'b == true');
+    const B = LeafTreeFactory.createLeafTree('B', 'Message B');
+    const C = DecisionTreeFactory.createDecisionTree('C', 'b == true');
 
 
-    A.attach(CommandTreeFactory.createCommandTree(true, C))
-    A.attach(CommandTreeFactory.createCommandTree(false, D))
+    A.attach(CommandTreeFactory.createCommandTree(true, B))
+    A.attach(CommandTreeFactory.createCommandTree(false, C))
 
-    /*
-    const I = LeafTreeFactory.createLeafTree('I', 'Message I');
-    const J = DecisionTreeFactory.createDecisionTree('J', 'c == false');
+    
+    const D = LeafTreeFactory.createLeafTree('D', 'Message D');
+    const E = DecisionTreeFactory.createDecisionTree('E', 'c == true');
 
-    D.attach(CommandTreeFactory.createCommandTree(true, I))
-    D.attach(CommandTreeFactory.createCommandTree(false, J))
+    C.attach(CommandTreeFactory.createCommandTree(true, D))
+    C.attach(CommandTreeFactory.createCommandTree(false, E))
+    
+    const F = LeafTreeFactory.createLeafTree('F', 'Message F');
+    const G = DecisionTreeFactory.createDecisionTree('G', 'd == true');
 
-    const L = LeafTreeFactory.createLeafTree('L', 'Message L');
-    const M = LeafTreeFactory.createLeafTree('M', 'Message M');
-
-    J.attach(CommandTreeFactory.createCommandTree(true, I))
-    J.attach(CommandTreeFactory.createCommandTree(false, J))
-    */
+    E.attach(CommandTreeFactory.createCommandTree(true, F))
+    E.attach(CommandTreeFactory.createCommandTree(false, G))
+    
     /*
            A       
-         C   D  
-            I J
-             L M
+         B    C  
+            D    E
+               F    G
          */
     expect(A).not.toBeUndefined();
+    //console.log(A);
+    const visitor = VisitorFactory.createVisitor(
+        {a: 0, b: false, c: false, d: true}
+      )
+    A.accept(visitor);
+
+    console.log(visitor.state);
+    
 
 });

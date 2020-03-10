@@ -11,7 +11,7 @@ module.exports =  class NodeTree{
     get name(){
         return this._name;
     }
-    get commandTrees(){
+    get commandTree(){
         return this._commandTree;
     }
     set commandTree(value){

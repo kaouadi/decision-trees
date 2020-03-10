@@ -1,4 +1,4 @@
-const VisitorNodeTree = require('../models/visitor')
+const Visitor = require('../models/visitor')
 module.exports =  class VisitorFactory{
 
     static createVisitor(

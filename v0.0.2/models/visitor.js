@@ -52,7 +52,7 @@ module.exports =  class Visitor{
                     decisionTree.validated = true
                  }
         */
-        eval(this.createRulesFromExpression(decisionTree.commandTree.ruleExp));
+        eval(this.createRulesFromExpression(decisionTree.commandTree.ruleExpr));
     }
     createRulesFromExpression(ruleExp){
         let rule = ruleExp.replace('{', '').replace('}', '');
