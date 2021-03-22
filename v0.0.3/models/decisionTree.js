@@ -11,15 +11,20 @@ module.exports =  class DecisionTree extends NodeTree{
     }
 
     accept(visitor){
-        /*
-         --
-        /* Case ! Not root node  */
+        /*---------------------
+        Case ! Not root node  
+        ----------------------*/
         if (this.commandTree != null){
-
+            visitor.visitNodeTree(this)
+            for(let commandTree of this._commandTrees){
+                commandTree.accept(visitor)
+            }
         }
         else
         {
-
+            for(let commandTree of this._commandTrees){
+                commandTree.accept(visitor)
+            }
         }
         
     }

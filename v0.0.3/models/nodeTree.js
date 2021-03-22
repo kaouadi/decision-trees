@@ -18,13 +18,6 @@ module.exports =  class NodeTree{
         this._commandTree = value;
     }
 
-    get validated(){
-        return this._validated;
-    }
-
-    set validated(value){
-        this._validated = value;
-    }
 
 
 

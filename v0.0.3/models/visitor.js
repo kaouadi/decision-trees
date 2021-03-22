@@ -2,7 +2,7 @@ module.exports =  class Visitor{
 
     constructor(){
 
-        this._state = null;
+        this._state = [];
 
     }
 
@@ -45,18 +45,19 @@ module.exports =  class Visitor{
         
     }
     visitNodeTree(decisionTree){
-        /* --  ---
 
-        */
+       this.add(decisionTree);
        
     }
 
-
+    
     get state(){
         return this._state ;
     }
-    set state(value){
-        this._state = value ;
+
+    add(nodeTree){
+        this._state.push(nodeTree)
     }
+
 
 }
