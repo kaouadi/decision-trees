@@ -2,9 +2,11 @@ module.exports =  class Visitor{
 
     constructor(){
 
+        this._state = null;
+
     }
 
-    decorateAttributes(params){
+    decorate(attributes){
         /* -- Decorate public attributes ------
 
             example :  params = {a: 2, b: 3, c: 4}
@@ -16,7 +18,7 @@ module.exports =  class Visitor{
                       return this._a ;
                   }
         */
-        for (let [key, value] of Object.entries(parameters)) {
+        for (let [key, value] of Object.entries(attributes)) {
             Object.defineProperty(this, `_${key}`, {
                 value: value,
                 writable: true
@@ -53,8 +55,8 @@ module.exports =  class Visitor{
     get state(){
         return this._state ;
     }
-    addState(name){
-        this._state.push(name) ;
+    set state(value){
+        this._state = value ;
     }
 
 }
