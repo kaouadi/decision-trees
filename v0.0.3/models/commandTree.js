@@ -24,7 +24,19 @@ module.exports =  class CommandTree {
         return this._currentNodeTree ;
     }
 
+
+
+
     accept(visitor){
+       visitor.visitCommandTree(this);
+       /*
+        Apres avoir visité l'objet command et evalué l'expression
+        contenant la condition on decide de visiter le noeud courant
+       */
+       if (this.isValid){
+        this._currentNodeTree.accept(visitor)
+       }
+
       
     }
 

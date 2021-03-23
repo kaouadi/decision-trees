@@ -23,12 +23,9 @@ module.exports =  class DecisionTree extends NodeTree{
         Case ! Not root node  
         ----------------------*/
         visitor.visitNodeTree(this);
-        console.log("-- root node  --")
-        //console.log(this);
-
         for(let commandTree of this._commandTrees){
-            //console.log("-- root node  --")
-            console.log(commandTree);
+            //console.log(commandTree);
+            commandTree.accept(visitor);
         }
         
     }

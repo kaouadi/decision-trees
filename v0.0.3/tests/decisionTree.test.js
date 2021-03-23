@@ -13,13 +13,13 @@ test('Create Node V0.0.3' , () => {
  
     const decisionTreeA = DecisionTreeFactory.createDecisionTree(1,"A",questionnaireA);
     const decisionTreeC = DecisionTreeFactory.createDecisionTree(2,"C",questionnaireC);
-    //const decisionTreeE = DecisionTreeFactory.createDecisionTree(3,"E",questionnaireE);
+    const decisionTreeE = DecisionTreeFactory.createDecisionTree(3,"E",questionnaireE);
 
 
     const leafB = LeafTreeFactory.createLeafTree(5,"B");
-    //const leafD = LeafTreeFactory.createLeafTree(6,"D");
-    //const leafF = LeafTreeFactory.createLeafTree(5,"F");
-    //const leafG = LeafTreeFactory.createLeafTree(6,"G");
+    const leafD = LeafTreeFactory.createLeafTree(6,"D");
+    const leafF = LeafTreeFactory.createLeafTree(5,"F");
+    const leafG = LeafTreeFactory.createLeafTree(6,"G");
 
     commandTreeA_0 = CommandTreeFactory.createCommandTree("${a} < 5");
     commandTreeA_0.currentNodeTree = leafB
@@ -30,24 +30,31 @@ test('Create Node V0.0.3' , () => {
     decisionTreeA.attach(commandTreeA_0);
     decisionTreeA.attach(commandTreeA_1);
 
+  
+    commandTreeC_0 = CommandTreeFactory.createCommandTree("${b} < 100");
+    commandTreeC_0.currentNodeTree = leafD
 
-    let attributes = {a: 10, b: null, c: null}
-    const visitor = VisitorFactory.createVisitor(attributes);
-    decisionTreeA.accept(visitor);
-    //console.log(decisionTreeA);
+    commandTreeC_1 = CommandTreeFactory.createCommandTree("${b} >= 30");
+    commandTreeC_1.currentNodeTree = decisionTreeE
+  
+    decisionTreeC.attach(commandTreeC_0);
+    decisionTreeC.attach(commandTreeC_1);
+    
+    commandTreeE_0 = CommandTreeFactory.createCommandTree("${c} < 500");
+    commandTreeE_0.currentNodeTree = leafF
 
-    /*
-    decisionTreeA.commandTrees.forEach(function(item) {
-      
-      console.log("---start---");
-      console.log(item);
-      console.log("---end---");
+    commandTreeE_1 = CommandTreeFactory.createCommandTree("${c} >= 500");
+    commandTreeE_1.currentNodeTree = leafG
 
-
-    });
-    */
+    decisionTreeE.attach(commandTreeE_0);
+    decisionTreeE.attach(commandTreeE_1);
     
 
+    let attributes = {a: 10, b: 100, c: 650}
+    const visitor = VisitorFactory.createVisitor(attributes);
+    decisionTreeA.accept(visitor);
+ 
+    
     /*
            A       
          B    C  
@@ -55,14 +62,9 @@ test('Create Node V0.0.3' , () => {
                F    G
          */
     //expect(A).not.toBeUndefined();
-    //console.log(A);
-    //const visitor = VisitorFactory.createVisitor(
-    //    {a: 0, b: false, c: false, d: true}
-    //  )
-    //A.accept(visitor);
 
     console.log(visitor);
-    console.log(visitor._a);
+    //console.log(visitor.a);
     
 
 });

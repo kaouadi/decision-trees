@@ -38,15 +38,20 @@ module.exports =  class Visitor{
           {a} > 3
           return false
        */
-
-      let isValid = eval('`' + commandTree.expression + '`');
-      commandTree.isValid = false ;
-
+      let formula =  eval('`' + commandTree.expression.replace('${','${this.') + '`');
+      //console.log(formula);
+      //console.log(eval(formula));
+      if (formula.includes("null")){
+        commandTree.isValid = false;
+      }
+      else
+      {
+        commandTree.isValid = eval(formula);
+      }
         
     }
     visitNodeTree(nodeTree){
 
-        console.log("----visitNodeTree----");
         this._state.push(nodeTree.code);
     }
 
