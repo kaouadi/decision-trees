@@ -3,7 +3,6 @@ module.exports =  class NodeTree{
         this._id = id;
         this._code = code;
         this._name = null;
-        this._validated = false;
         this._commandTree = null;
     }
 

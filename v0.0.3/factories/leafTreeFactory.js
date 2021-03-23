@@ -2,14 +2,12 @@ const LeafTree = require('../models/leafTree')
 module.exports =  class LeafTreeFactory{
 
     static createLeafTree(
-            name,
-            message
+        id,
+        code
     ){
 
-        const leafTree = new LeafTree();
-        leafTree.name = name;
-        leafTree.message = message;
-        return leafTree;
+    const leafTree = new LeafTree(id,code);
+    return leafTree;
 
 
     }

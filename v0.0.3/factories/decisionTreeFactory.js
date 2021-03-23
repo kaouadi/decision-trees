@@ -2,17 +2,16 @@ const DecisionTree = require('../models/decisionTree')
 module.exports =  class DecisionTreeFactory{
 
     static createDecisionTree(
-            name,
-            expression
+            id,
+            code
     ){
 
-        const decisionTree = new DecisionTree();
-        decisionTree.name = name;
-        decisionTree.expression = expression;
+        const decisionTree = new DecisionTree(id,code);
         return decisionTree;
 
 
     }
+    
     
 
 }
