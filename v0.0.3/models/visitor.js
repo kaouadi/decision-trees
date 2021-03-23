@@ -46,7 +46,7 @@ module.exports =  class Visitor{
     }
     visitNodeTree(decisionTree){
 
-       this.add(decisionTree);
+       this.save(decisionTree);
        
     }
 
@@ -55,7 +55,7 @@ module.exports =  class Visitor{
         return this._state ;
     }
 
-    add(nodeTree){
+    save(nodeTree){
         this._state.push(nodeTree)
     }
 

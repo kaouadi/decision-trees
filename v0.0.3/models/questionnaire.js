@@ -1,8 +1,9 @@
 module.exports =  class Questionnaire{
 
 
-    constructor(id){
+    constructor(id, code){
         this._id = id;
+        this._code = code;
         this._items = [];
         this._nodeTree = null;
     }

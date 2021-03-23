@@ -1,7 +1,7 @@
 const NodeTree = require('../models/nodeTree');
 module.exports =  class DecisionTree extends NodeTree{
-    constructor(){
-        super();
+    constructor(id, code){
+        super(id, code);
         this._commandTrees = [];
 
     }
@@ -10,21 +10,14 @@ module.exports =  class DecisionTree extends NodeTree{
         this._commandTrees.push(commandTree);
     }
 
-    accept(visitor){
+    accept(visitor){ 
         /*---------------------
         Case ! Not root node  
         ----------------------*/
-        if (this.commandTree != null){
-            visitor.visitNodeTree(this)
-            for(let commandTree of this._commandTrees){
-                commandTree.accept(visitor)
-            }
-        }
-        else
-        {
-            for(let commandTree of this._commandTrees){
-                commandTree.accept(visitor)
-            }
+        visitor.visitNodeTree(this)
+
+        for(let commandTree of this._commandTrees){
+            commandTree.accept(visitor)
         }
         
     }
