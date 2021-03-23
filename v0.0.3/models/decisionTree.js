@@ -1,8 +1,13 @@
 const NodeTree = require('../models/nodeTree');
 module.exports =  class DecisionTree extends NodeTree{
-    constructor(id, code){
+    constructor(id, code, questionnaire){
         super(id, code);
         this._commandTrees = [];
+        this._questionnaire = questionnaire
+    }
+
+    get questionnaire(){
+        return this._questionnaire;
     }
  
     attach(commandTree){

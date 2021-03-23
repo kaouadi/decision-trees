@@ -3,10 +3,11 @@ module.exports =  class DecisionTreeFactory{
 
     static createDecisionTree(
             id,
-            code
+            code,
+            questionnaire
     ){
 
-        const decisionTree = new DecisionTree(id,code);
+        const decisionTree = new DecisionTree(id,code, questionnaire);
         return decisionTree;
 
 

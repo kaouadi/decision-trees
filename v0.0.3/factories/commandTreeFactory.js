@@ -3,10 +3,10 @@ module.exports =  class CommandTreeFactory{
 
     static createCommandTree(
             expression,
-            previousNodeTree
+            currentNodeTree
     ){
 
-        const commandTree = new CommandTree(expression, previousNodeTree);
+        const commandTree = new CommandTree(expression, currentNodeTree);
         return commandTree;
 
 

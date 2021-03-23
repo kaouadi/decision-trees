@@ -1,10 +1,10 @@
 
 module.exports =  class CommandTree {
-    constructor(expression, previousNodeTree){
+    constructor(expression, currentNodeTree){
         this._expression = expression;
-        this._previousNodeTree = previousNodeTree;
         this._isValid = false;
-        this._currentNodeTree = null;
+        this._currentNodeTree = currentNodeTree;
+        this._previousNodeTree = null;
     }
     set currentNodeTree(value){
         this._currentNodeTree = value;
