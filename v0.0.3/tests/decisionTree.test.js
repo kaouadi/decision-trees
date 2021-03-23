@@ -1,6 +1,6 @@
 const DecisionTreeFactory = require('../factories/decisionTreeFactory');
 const LeafTreeFactory = require('../factories/LeafTreeFactory');
-//const VisitorFactory = require('../factories/visitorFactory');
+const VisitorFactory = require('../factories/visitorFactory');
 const CommandTreeFactory = require('../factories/commandTreeFactory');
 const QuestionnaireFactory = require('../factories/questionnaireFactory');
 
@@ -13,26 +13,41 @@ test('Create Node V0.0.3' , () => {
  
     const decisionTreeA = DecisionTreeFactory.createDecisionTree(1,"A",questionnaireA);
     const decisionTreeC = DecisionTreeFactory.createDecisionTree(2,"C",questionnaireC);
-    const decisionTreeE = DecisionTreeFactory.createDecisionTree(3,"E",questionnaireE);
+    //const decisionTreeE = DecisionTreeFactory.createDecisionTree(3,"E",questionnaireE);
 
 
     const leafB = LeafTreeFactory.createLeafTree(5,"B");
-    const leafD = LeafTreeFactory.createLeafTree(6,"D");
-    const leafF = LeafTreeFactory.createLeafTree(5,"F");
-    const leafG = LeafTreeFactory.createLeafTree(6,"G");
+    //const leafD = LeafTreeFactory.createLeafTree(6,"D");
+    //const leafF = LeafTreeFactory.createLeafTree(5,"F");
+    //const leafG = LeafTreeFactory.createLeafTree(6,"G");
+
+    commandTreeA_0 = CommandTreeFactory.createCommandTree("${a} < 5");
+    commandTreeA_0.currentNodeTree = leafB
+
+    commandTreeA_1 = CommandTreeFactory.createCommandTree("${a} >= 5");
+    commandTreeA_1.currentNodeTree = decisionTreeC
+
+    decisionTreeA.attach(commandTreeA_0);
+    decisionTreeA.attach(commandTreeA_1);
 
 
-    decisionTreeA.attach(CommandTreeFactory.createCommandTree("${a} < 5",leafB));
-    decisionTreeA.attach(CommandTreeFactory.createCommandTree("${a} >= 1",decisionTreeC))
+    let attributes = {a: 10, b: null, c: null}
+    const visitor = VisitorFactory.createVisitor(attributes);
+    decisionTreeA.accept(visitor);
+    //console.log(decisionTreeA);
 
-    decisionTreeC.attach(CommandTreeFactory.createCommandTree("${b} > 100",leafD))
-    decisionTreeC.attach(CommandTreeFactory.createCommandTree("${a} <= 200",decisionTreeE))
+    /*
+    decisionTreeA.commandTrees.forEach(function(item) {
+      
+      console.log("---start---");
+      console.log(item);
+      console.log("---end---");
 
-    decisionTreeE.attach(CommandTreeFactory.createCommandTree("${a} > 4",leafF))
-    decisionTreeE.attach(CommandTreeFactory.createCommandTree("${a} <= 10",leafG))
 
-
+    });
+    */
     
+
     /*
            A       
          B    C  
@@ -46,7 +61,8 @@ test('Create Node V0.0.3' , () => {
     //  )
     //A.accept(visitor);
 
-    //console.log(visitor.state);
+    console.log(visitor);
+    console.log(visitor._a);
     
 
 });

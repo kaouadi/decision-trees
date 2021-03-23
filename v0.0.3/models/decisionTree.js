@@ -3,15 +3,18 @@ module.exports =  class DecisionTree extends NodeTree{
     constructor(id, code, questionnaire){
         super(id, code);
         this._commandTrees = [];
-        this._questionnaire = questionnaire
+        this._questionnaire = questionnaire;
     }
 
     get questionnaire(){
         return this._questionnaire;
     }
+
+    get commandTrees(){
+        return this._commandTrees;
+    }
  
     attach(commandTree){
-        commandTree.previousNodeTree = this;
         this._commandTrees.push(commandTree);
     }
 
@@ -19,10 +22,13 @@ module.exports =  class DecisionTree extends NodeTree{
         /*---------------------
         Case ! Not root node  
         ----------------------*/
-        visitor.visitNodeTree(this)
+        visitor.visitNodeTree(this);
+        console.log("-- root node  --")
+        //console.log(this);
 
         for(let commandTree of this._commandTrees){
-            commandTree.accept(visitor)
+            //console.log("-- root node  --")
+            console.log(commandTree);
         }
         
     }

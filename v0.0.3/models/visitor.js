@@ -40,23 +40,19 @@ module.exports =  class Visitor{
        */
 
       let isValid = eval('`' + commandTree.expression + '`');
-      commandTree.isValid = isValid ;
+      commandTree.isValid = false ;
 
         
     }
-    visitNodeTree(decisionTree){
+    visitNodeTree(nodeTree){
 
-       this.save(decisionTree);
-       
+        console.log("----visitNodeTree----");
+        this._state.push(nodeTree.code);
     }
 
     
     get state(){
         return this._state ;
-    }
-
-    save(nodeTree){
-        this._state.push(nodeTree)
     }
 
 
