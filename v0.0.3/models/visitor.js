@@ -3,6 +3,7 @@ module.exports =  class Visitor{
     constructor(){
 
         this._state = [];
+        this._entries = null;
 
     }
 
@@ -28,6 +29,58 @@ module.exports =  class Visitor{
             }});
         }
     }
+    decorateFromDictionary(dictionary){
+        /* -- Decorate public attributes ------
+
+            example :  dictionary = [
+                {key: 'a', type: 'decimal', value: 10},
+                {key: 'b', type: 'decimal', value: null},
+                {key: 'c', type: 'decimal', value: null}
+            ]
+
+            ----> decorateFromdictionary(params)
+            ----> Define private properties
+            ----> this._a = 2;
+            ----> Define public properties
+            ----> get a(){
+                      return this._a ;
+                  }
+        */
+        var i;
+        for (i = 0; i < dictionary.length; i++) {
+
+            var key = dictionary[i].key ;
+            var type = dictionary[i].type ;
+            var value;
+            if(dictionary[i].value != null){
+                switch (dictionary[i].type) {
+                    case 'string':
+                        value = String(dictionary[i].value);
+                        break;
+                    case 'decimal':
+                        value = Number(dictionary[i].value);
+                        break;
+                    case 'integer':
+                        value = parseInt(dictionary[i].value);
+                        break;
+                    default:
+                        console.log(`Sorry, we are out of ${type}.`);
+                        break;
+                }
+            }
+
+            Object.defineProperty(this, `_${key}`, {
+                value: value,
+                writable: true
+            });
+            Object.defineProperty(this, `${key}`, { get: function(){
+               return eval(`this._${key}`);
+            }});
+            
+        }
+
+
+    }
     visitCommandTree(commandTree){
 
        /*
@@ -52,12 +105,16 @@ module.exports =  class Visitor{
     }
     visitNodeTree(nodeTree){
 
-        this._state.push(nodeTree.code);
+        this._state.push(nodeTree);
     }
-
+    
     
     get state(){
         return this._state ;
+    }
+
+    get entries(){
+        return this._entries;
     }
 
 

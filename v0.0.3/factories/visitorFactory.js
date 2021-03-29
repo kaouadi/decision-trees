@@ -2,11 +2,22 @@ const Visitor = require('../models/visitor')
 module.exports =  class VisitorFactory{
 
     static createVisitor(
-        attributes
+        parameters
     ){
 
         const visitor = new Visitor();
-        visitor.decorate(attributes);
+        visitor.decorate(parameters);
+
+        return visitor;
+
+
+    }
+    static createVisitorFromDictionary(
+        parameters
+    ){
+
+        const visitor = new Visitor();
+        visitor.decorateFromDictionary(parameters);
 
         return visitor;
 
