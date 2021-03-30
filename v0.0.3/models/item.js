@@ -1,20 +1,22 @@
 module.exports =  class Item{
 
 
-    constructor(key, type, content){
+    constructor(id, key, type, content, itemValue){
+        this._id = id;
         this._key = key;
         this._type = type;
         this._content = content;
-        this._itemValue = null;
+        this._itemValue = itemValue;
         this._selected = false;
     }
-
-    get content(){
-        return this._content ;
+    get id(){
+        return this._id;
     }
-
     get key(){
         return this._key;
+    }
+    get content(){
+        return this._content ;
     }
     get type(){
         return this._type;

@@ -11,4 +11,8 @@ module.exports =  class Questionnaire{
         this._items.push(item);
     }
 
+    get items(){
+        return this._items;
+    }
+
 }
